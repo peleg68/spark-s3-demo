@@ -1,4 +1,4 @@
-#Spark S3 Demo
+# Spark S3 Demo
 
 This is a demo of Apache Spark reading from S3 and writing to S3.
 
