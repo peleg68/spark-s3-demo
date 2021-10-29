@@ -14,15 +14,18 @@ public class Main {
      * It is important that the Hadoop WinUtils version matches the hadoop-common version in pom.xml.
      */
     private static final String HADOOP_HOME_DIR = "d:\\winutil\\";
+    private static final String S3_ENDPOINT = "192.168.99.100:9000";
+    private static final String S3_ACCESS_KEY = "peleg";
+    private static final String S3_SECRET_KEY = "peleg686";
 
     public static void main(String[] args) {
         System.setProperty("hadoop.home.dir", HADOOP_HOME_DIR);
 
         SparkSession sparkSession = SparkSession.builder()
                 .appName("s3-demo")
-                .config("spark.hadoop.fs.s3a.endpoint", "192.168.99.100:9000")
-                .config("spark.hadoop.fs.s3a.access.key", "peleg")
-                .config("spark.hadoop.fs.s3a.secret.key", "peleg686")
+                .config("spark.hadoop.fs.s3a.endpoint", S3_ENDPOINT)
+                .config("spark.hadoop.fs.s3a.access.key", S3_ACCESS_KEY)
+                .config("spark.hadoop.fs.s3a.secret.key", S3_SECRET_KEY)
                 .config("spark.hadoop.fs.s3a.path.style.access", "true")
                 .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false")
                 .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
@@ -53,6 +56,6 @@ public class Main {
                 .coalesce(1)
                 .write()
                 .mode(SaveMode.Overwrite)
-                .csv("s3a://example-data/macbeth-word-counts.csv");
+                .csv("s3a://example-data/macbeth-word-counts");
     }
 }
